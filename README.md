@@ -24,6 +24,18 @@ railgun工具插件开发依赖库，由于go是编译语言，所以要实现�
 
 ## exp编写
 
+### 导入依赖库
+
+```go
+import (
+	"github.com/lz520520/railgunlib/modules/exps/exp_templates"
+	"github.com/lz520520/railgunlib/pkg/register/exp_register"
+	"github.com/lz520520/railgunlib/pkg/templates/exp_model"
+)
+```
+
+
+
 ### exp结构体
 
 声明一个exp结构体，结构体名严格按照`Exp_`开头，一定要首字母大写，结构体内只需要继承`exp_templates.ExpTemplate`即可
@@ -46,6 +58,8 @@ func (self *exp) Upload1(filename string, content string) (status bool, respPath
 
 
 ### 编写exp举例
+
+
 
 如一个S2-045，代码如下
 
