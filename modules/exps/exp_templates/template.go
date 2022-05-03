@@ -3,13 +3,13 @@ package exp_templates
 /*
 ExmTemplate是所有exp的模板
 编写实际exp时，只需内嵌这个结构体即可，各功能exp还是按以往规律，签名如下
-func (self *exp) GetMsg1(cmd string) (expResult templates.ExpResult)
-func (self *exp) Cmd1(cmd string) (expResult templates.ExpResult)
-func (self *exp) Reverse1(ip, port string) (expResult templates.ExpResult)
-func (self *exp) Upload1(filename string, content string) (status bool, respPath string)
+func (self *exp) GetMsg1(cmd string) (expResult exp_model.ExpResult)
+func (self *exp) Cmd1(cmd string) (expResult exp_model.ExpResult)
+func (self *exp) Reverse1(ip, port string) (expResult exp_model.ExpResult)
+func (self *exp) Upload1(filename string, content string) (expUploadResult exp_model.ExpUploadResult)
 
 Init方法用于初始化
-EchoMsgWithReturn 用于实时回显，判断TmpResultCh是否不为空，否则即打印log
+EchoInfoMsg 用于实时回显
 
 */
 

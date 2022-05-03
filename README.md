@@ -49,10 +49,10 @@ import (
 方法签名如下
 
 ```go
-func (self *exp) GetMsg1(cmd string) (expResult templates.ExpResult)
-func (self *exp) Cmd1(cmd string) (expResult templates.ExpResult)
-func (self *exp) Reverse1(ip, port string) (expResult templates.ExpResult)
-func (self *exp) Upload1(filename string, content string) (status bool, respPath string)
+func (self *exp) GetMsg1(cmd string) (expResult exp_model.ExpResult)
+func (self *exp) Cmd1(cmd string) (expResult exp_model.ExpResult)
+func (self *exp) Reverse1(ip, port string) (expResult exp_model.ExpResult)
+func (self *exp) Upload1(filename string, content string) (expUploadResult exp_model.ExpUploadResult)
 ```
 
 
