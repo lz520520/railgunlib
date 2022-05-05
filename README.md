@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 # 前言
 
 railgun工具插件开发依赖库，由于go是编译语言，所以要实现动态代码执行，需要提前解析依赖；
@@ -10,9 +14,9 @@ railgun工具插件开发依赖库，由于go是编译语言，所以要实现�
 
 
 
-# 编写规范
+# exp编写规范
 
-## 创建exp文件
+## exp文件创建
 
 根目录为`modules/exps/exp_plugins`，往下每个产品单独目录，目录名以`exp_`开头，每个目录下存在每个产品对应的各种漏洞exp的go文件，文件也是以`exp_`开头
 
@@ -28,7 +32,7 @@ railgun工具插件开发依赖库，由于go是编译语言，所以要实现�
 
 ```go
 import (
-	"github.com/lz520520/railgunlib/modules/exps/exp_templates"
+	"github.com/lz520520/railgunlib/pkg/templates/exp_templates"
 	"github.com/lz520520/railgunlib/pkg/register/exp_register"
 	"github.com/lz520520/railgunlib/pkg/templates/exp_model"
 )
@@ -351,7 +355,7 @@ func (self *ExpTemplate) HttpPostMultiWithoutRedirect(target string, postMultiPa
 
 
 
-```
+```go
 // 调试信息打印，开启DEBUG方可显示
 func (self *ExpTemplate) EchoDebugMsg(msg string) {}
 
@@ -403,7 +407,7 @@ func (self *ExpTemplate) GetHostname(target string) (hostname string) {
 
 
 
-```
+```go
 // 获得当前程序所在的目录
 func GetCurrentProcessFileDir() string {}
 
@@ -432,8 +436,47 @@ func ExecCmdWithTimeout(timeout time.Duration, arg ...string) ([]byte, error) {}
 
 
 
+# poc编写规范
+
+## poc文件创建
+
+
+
+## poc编写
+
+### 导入依赖库
+
+```go
+import (
+	"github.com/lz520520/railgunlib/pkg/templates/poc_templates"
+	"github.com/lz520520/railgunlib/pkg/register/poc_register"
+	"github.com/lz520520/railgunlib/pkg/templates/poc_model"
+)
+```
+
+
+
+### poc结构体
+
+### 编写poc举例
+
+
+
+### 漏洞信息注册
+
+
+
+### 最终效果
+
+
+
+## 常用函数
+
+
+
 
 
 # 注意事项
 
 1. 编写导入的库仅支持go自带库以及当前依赖库，第三方库不支持调用。
+1. 代码文件中禁用声明`NewExp/NewPoc`函数

@@ -2,9 +2,9 @@ package exp_product1
 
 import (
 	"fmt"
-	"github.com/lz520520/railgunlib/modules/exps/exp_templates"
 	"github.com/lz520520/railgunlib/pkg/register/exp_register"
 	"github.com/lz520520/railgunlib/pkg/templates/exp_model"
+	"github.com/lz520520/railgunlib/pkg/templates/exp_templates"
 	"strings"
 )
 

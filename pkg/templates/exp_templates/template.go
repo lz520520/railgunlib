@@ -33,7 +33,7 @@ func (self *ExpTemplate) GetItemSafe(s map[string]string, key string) (ret strin
 	return
 }
 
-// 安全添加URI
+// 只有当前URL没有路径/目录时，会添加URI
 func (self *ExpTemplate) AddUri(target, uri string) (result string) {
 
 	return
