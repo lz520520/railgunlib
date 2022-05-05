@@ -27,17 +27,17 @@ type PocSendParamS struct {
 }
 
 type PocPerPayloadResult struct {
-	Status   bool
-	Messages string
-	Err      error
+	Status   bool   // 漏洞是否存在
+	Messages string // 漏洞信息
+	Err      error  // 错误
 }
 
 // poc 信息栏
 type PocMsg struct {
-	Name     string
-	Author   string
-	Time     string
-	Range    string
-	ID       string
-	Describe string
+	Name     string // 漏洞名称，如果为空，则直接用结构体名
+	Author   string // 作者
+	Time     string // 发布时间
+	Range    string // 影响范围
+	ID       string // 漏洞编号
+	Describe string // 漏洞描述
 }

