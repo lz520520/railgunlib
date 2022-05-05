@@ -3,6 +3,7 @@ package poc_product2
 import (
 	"encoding/json"
 	"github.com/lz520520/railgunlib/pkg/register/poc_register"
+	"github.com/lz520520/railgunlib/pkg/templates/common"
 	"github.com/lz520520/railgunlib/pkg/templates/poc_model"
 	"github.com/lz520520/railgunlib/pkg/templates/poc_templates"
 )
@@ -48,6 +49,7 @@ func init() {
 		Range:    "",
 		ID:       "",
 		Describe: "向日葵高端口RCE",
+		VulType:  common.VulCmdExec,
 	},
 		Proto: poc_model.PocHTTP,
 	}

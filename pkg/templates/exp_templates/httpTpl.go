@@ -12,7 +12,6 @@ func (self *ExpTemplate) HttpGetWithoutRedirect(target string, headers lzhttp.He
 	return
 }
 
-// -----------------------HTTP请求----------------------------------
 func (self *ExpTemplate) HttpDelete(target string, headers lzhttp.Header) (resp lzhttp.HttpResp) {
 	return
 }

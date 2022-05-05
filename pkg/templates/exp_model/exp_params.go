@@ -9,13 +9,15 @@ import (
 
 // exp 信息栏
 type ExpMsg struct {
-	Author   string // 作者信息
-	Time     string // 编写时间
-	Range    string // 影响范围
-	ID       string // CVE等编号
-	Describe string // 漏洞描述
-	Details  string // 漏洞利用详细说明，每个payload都有一些操作步骤，可在此详细说明。
-	Payload  string // 简易payload，用于提示用
+	Author    string // 作者信息
+	Time      string // 编写时间
+	Range     string // 影响范围
+	ID        string // CVE等编号
+	Describe  string // 漏洞描述
+	Details   string // 漏洞利用详细说明，每个payload都有一些操作步骤，可在此详细说明。
+	Payload   string // 简易payload，用于提示用
+	Reference string // 引用
+	VulType   string // 漏洞类型
 }
 
 // -------------------------------------exp发送参数集----------------------------------------------------
