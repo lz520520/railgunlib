@@ -49,8 +49,14 @@ type ExpExtendOptions struct {
 	Gadget    []string  // 所需要展示在UI上可选的gadget，暂时未开放
 	VulParams VulParams // 漏洞信息
 
-	CmdSubOptions    map[string]string // cmd子选项
+	CmdSubOptions map[string]string // cmd子选项
+	ReverseParams ReverseParams     // 反弹shell子选项
+
 	UploadSubOptions map[string]string // 上传子选项
+}
+
+type ReverseParams struct {
+	OS string // 系统类型，只有windows/linux两个值
 }
 
 // 漏洞名称等信息
