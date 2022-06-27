@@ -117,6 +117,8 @@ self.Params里有需要的各种请求参数。
 
 
 
+
+
 ### 打印结果
 
 打印结果有两种方法，将结果如下保存到相应结构体里即可
@@ -385,6 +387,114 @@ func (self *ExpTemplate) EchoErrMsg(msg string) {}
 // 不换行错误信息打印
 func (self *ExpTemplate) EchoErrMsgWithoutReturn(msg string) {}
 ```
+
+
+
+
+
+### 反序列化gadget辅助方法（新增）
+
+```go
+// 添加EncodeEcho系列Gadget请求头
+func (self *ExpTemplate) AddEncodeCmdHeader(srcheaders lzhttp.Header, cmd string) {
+}
+
+
+// 添加Echo系列Gadget请求头
+func (self *ExpTemplate) AddPlainCmdHeader(srcheaders lzhttp.Header, cmd string) {
+}
+
+// 检查是否回显利用成功
+func (self *ExpTemplate) CheckRespHeader(headers lzhttp.Header) bool {
+	return false
+}
+
+// 解析EncodeEcho系列响应数据
+func (self *ExpTemplate) ParserEncodeCmdResult(rawResult string) (parserResult string, err error) {
+	return parserResult, nil
+}
+
+// 解析Echo系列响应数据
+func (self *ExpTemplate) ParserPlainCmdResult(rawResult string) (parserResult string, err error) {
+	return parserResult, nil
+}
+
+// 回调延迟利用函数，判断是否存在漏洞
+func (self *ExpTemplate) CheckGagdetWithSleep(fun func() error, delay time.Duration) (status bool, err error) {
+	return
+}
+
+```
+
+
+
+
+
+### yso利用链（新增）
+
+通过以下函数传入paylod名称以及参数来实现获取yso payload。
+
+```go
+func YsoserialPayloadGenerator(payloadType, cmd string) (payload []byte) {
+	return
+}
+```
+
+
+
+目前支持的payload
+
+| payload名称                           | 传参举例                       | 备注                     |
+| ------------------------------------- | :----------------------------- | ------------------------ |
+| URLDNS                                | xxx.dnslog.cn                  | dns解析                  |
+| CommonsCollections1                   | calc                           | 无回显                   |
+| CommonsCollections2                   | calc                           | 无回显                   |
+| CommonsCollections3                   | calc                           | 无回显                   |
+| CommonsCollections4                   | calc                           | 无回显                   |
+| CommonsCollections5                   | calc                           | 无回显                   |
+| CommonsCollections6                   | calc                           | 无回显                   |
+| CommonsCollections10                  | calc                           | 无回显                   |
+| Jdk7u21                               | calc                           | 无回显                   |
+| Jdk8u20                               | calc                           | 无回显                   |
+| JRMPClient                            | 192.168.1.1:1099               |                          |
+|                                       |                                |                          |
+| CommonsBeanutilsNoCC1TomcatEncodeEcho | 调用AddEncodeCmdHeader插入命令 | tomcat编码回显           |
+| CommonsBeanutilsNoCC1SpringEncodeEcho | 调用AddEncodeCmdHeader插入命令 | spring编码回显           |
+| CommonsBeanutilsNoCC1Sleep            | 空                             | sleep 10秒检测漏洞       |
+| CommonsBeanutilsNoCC1SpringEcho       | 调用AddPlainCmdHeader插入命令  | spring明文回显           |
+| CommonsBeanutilsNoCC1TomcatEcho       | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsBeanutilsNoCC1                 | calc                           | 无回显                   |
+|                                       |                                |                          |
+| CommonsBeanutilsNoCC2TomcatEncodeEcho | 调用AddEncodeCmdHeader插入命令 | tomcat编码回显           |
+| CommonsBeanutilsNoCC2Sleep            | 空                             | sleep 10秒检测漏洞       |
+| CommonsBeanutilsNoCC2SpringEncodeEcho | 调用AddEncodeCmdHeader插入命令 | spring编码回显           |
+| CommonsBeanutilsNoCC2TomcatEcho       | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsBeanutilsNoCC2SpringEcho       | 调用AddPlainCmdHeader插入命令  | spring明文回显           |
+| CommonsBeanutilsNoCC2                 | calc                           | 无回显                   |
+|                                       |                                |                          |
+| CommonsCollectionsK1TomcatEncodeEcho  | 调用AddEncodeCmdHeader插入命令 | tomcat编码回显           |
+| CommonsCollectionsK1TomcatEcho        | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsCollectionsK1SpringEchoEcho    | 调用AddEncodeCmdHeader插入命令 | spring编码回显           |
+| CommonsCollectionsK1SpringEcho        | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsCollectionsK1Sleep             | 空                             | sleep 10秒检测漏洞       |
+| CommonsCollectionsK1                  | calc                           | 无回显                   |
+|                                       |                                |                          |
+| CommonsCollectionsK2TomcatEncodeEcho  | 调用AddEncodeCmdHeader插入命令 | tomcat编码回显           |
+| CommonsCollectionsK2TomcatEcho        | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsCollectionsK2SpringEchoEcho    | 调用AddEncodeCmdHeader插入命令 | spring编码回显           |
+| CommonsCollectionsK2SpringEcho        | 调用AddPlainCmdHeader插入命令  | tomcat明文回显           |
+| CommonsCollectionsK2Sleep             | 空                             | sleep 10秒检测漏洞       |
+| CommonsCollectionsK2                  | calc                           | 无回显                   |
+|                                       |                                |                          |
+| FindClassByDNS                        | xxx.dnslog.cn                  | 自动化检测多条利用链依赖 |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
+|                                       |                                |                          |
 
 
 
