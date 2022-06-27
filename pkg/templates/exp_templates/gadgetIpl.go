@@ -2,6 +2,7 @@ package exp_templates
 
 import (
 	"github.com/lz520520/railgunlib/pkg/utils/lznet/lzhttp"
+	"net/http"
 	"time"
 )
 
@@ -14,7 +15,7 @@ func (self *ExpTemplate) AddPlainCmdHeader(srcheaders lzhttp.Header, cmd string)
 }
 
 // 检查是否回显利用成功
-func (self *ExpTemplate) CheckRespHeader(headers lzhttp.Header) bool {
+func (self *ExpTemplate) CheckRespHeader(headers http.Header) bool {
 	return false
 }
 

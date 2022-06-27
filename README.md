@@ -212,7 +212,7 @@ type ExpSubOption struct {
 	UploadContent    string             // 上传内容默认值
 	UploadSubOptions []ExpSubOptionItem // 上传子选项自绘
 
-	Gadgets []string // gadget选项
+	Gadgets []string // gadget选项，添加需要使用的yso gadget，在界面上呈现
 
 	UploadModes []UploadModeType // 上传类型，插件暂时不提供其他选项
 }
