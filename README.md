@@ -440,9 +440,13 @@ func YsoserialPayloadGenerator(payloadType, cmd string) (payload []byte) {
 }
 ```
 
+使用例子参考：[exp_ysoDemo.go](https://github.com/lz520520/railgun-plugin-demo/blob/master/modules/exps/exp_plugins/exp_product1/exp_ysoDemo.go)
+
 
 
 目前支持的payload
+
+推荐利用链：`CommonsCollectionsK1`、`CommonsCollectionsK2`、`CommonsBeanutilsNoCC1`、`CommonsBeanutilsNoCC2`以及它们的扩展，其余的利用链就`URLDNS`、`JRMPClient`和最新的`FindClassByDNS`。
 
 | payload名称                           | 传参举例                       | 备注                     |
 | ------------------------------------- | :----------------------------- | ------------------------ |
