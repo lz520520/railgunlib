@@ -19,12 +19,6 @@ import (
 
 var (
 	currentPath = filepath.Dir(os.Args[0])
-	hexMeta     = "0123456789abcdef"
-
-	AsciiLitter = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-	UpperLitter = "QWERTYUIOPASDFGHJKLZXCVBNM"
-	LowerLitter = "qwertyuiopasdfghjklzxcvbnm"
-	Digits      = "1234567890"
 
 	ipReTemplate = `(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)`
 	ipAddrRe     = regexp.MustCompile(fmt.Sprintf("^%s$", ipReTemplate))
@@ -33,16 +27,6 @@ var (
 // 获得当前程序所在的目录
 func GetCurrentProcessFileDir() string {
 	return currentPath
-}
-
-// 随机生成 MD5 HASH 值
-func RandomMD5Hash() string {
-	return randStrWithMeta(32, LowerLitter+Digits)
-}
-
-// 随机生成指定长度的字符串
-func RandomHexString(size int) (ret string) {
-	return randStrWithMeta(size, hexMeta)
 }
 
 // 生成 `UUID` V4 字符串
@@ -112,9 +96,9 @@ func randInt(min, max int) int {
 func randStrWithMeta(n int, metaData string) string {
 	bytes := []byte(metaData)
 	result := []byte{}
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	//r :=
 	for i := 0; i < n; i++ {
-		result = append(result, bytes[r.Intn(len(bytes))])
+		result = append(result, bytes[rand.Intn(len(bytes))])
 	}
 	return string(result)
 }

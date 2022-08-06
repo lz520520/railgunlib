@@ -1,6 +1,6 @@
 package common
 
-var (
+const (
 	VulCodeExec       = "Code Execution"
 	VulCmdExec        = "Command Execution"
 	VulFileUpload     = "File Upload"
