@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/gogf/gf/encoding/gcharset"
 	"github.com/google/uuid"
 	"math/rand"
 	"os"
@@ -58,6 +59,25 @@ func IsValidIP(ip string) bool {
 	return ipAddrRe.MatchString(ip)
 }
 
+// 中文编码转换
+func GBKToUTF8(src string) (dst string) {
+	var err error
+	dst, err = gcharset.Convert("UTF-8", "GBK", src)
+	if err != nil {
+		dst = src
+	}
+	return
+}
+
+func UTF8ToGBK(src string) (dst string) {
+	var err error
+	dst, err = gcharset.Convert("GBK", "UTF-8", src)
+	if err != nil {
+		dst = src
+	}
+	return
+}
+
 // 检测文件是否存在
 func FileExists(filename string) bool {
 	_, err := os.Stat(filename)
@@ -87,7 +107,7 @@ func ExecCmdWithTimeout(timeout time.Duration, arg ...string) ([]byte, error) {
 }
 
 func randInt(min, max int) int {
-	if min >= max || min == 0 || max == 0 {
+	if min >= max || max == 0 {
 		return max
 	}
 	return rand.Intn(max-min) + min

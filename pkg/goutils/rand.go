@@ -58,3 +58,15 @@ func RandStr(n int) string {
 	}
 	return RandStrWithMeta(n, AsciiLitter)
 }
+
+// 随机任意字节数组
+func RandBytes(n int) []byte {
+	if n == 0 {
+		n = RandInt(3, 20)
+	}
+	dst := make([]byte, 0)
+	for i := 0; i < n; i++ {
+		dst = append(dst, byte(randInt(0, 255)))
+	}
+	return dst
+}
