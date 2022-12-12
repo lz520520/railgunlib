@@ -11,6 +11,12 @@ type ExpRegisterMsg struct {
 	AliasMap   map[string]string                 // 别名，map[string][string]{"1": "KeyCheck", "2": "RCE"}
 }
 
-//exp结构体注册
+// exp结构体注册
 func ExpStructRegister(s interface{}, registerMsg ExpRegisterMsg) {
+}
+
+// 解析msg字符串生成ExpMsg
+// Deprecated
+func ExpMsgParser(msg string) exp_model.ExpMsg {
+	return exp_model.ExpMsg{}
 }

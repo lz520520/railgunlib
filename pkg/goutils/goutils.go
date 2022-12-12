@@ -25,6 +25,19 @@ var (
 	ipAddrRe     = regexp.MustCompile(fmt.Sprintf("^%s$", ipReTemplate))
 )
 
+// 获取文件名，如C:/test.exe 返回 test
+func GetBaseName(name string) string {
+	filenameWithSuffix := filepath.Base(name)
+	fileSuffix := filepath.Ext(filenameWithSuffix)
+	return strings.TrimSuffix(filenameWithSuffix, fileSuffix)
+}
+
+// 获取文件名携带后缀，如C:/test.exe 返回 test.exe
+func GetBaseNameWithSuffix(name string) string {
+	filenameWithSuffix := filepath.Base(name)
+	return filenameWithSuffix
+}
+
 // 获得当前程序所在的目录
 func GetCurrentProcessFileDir() string {
 	return currentPath

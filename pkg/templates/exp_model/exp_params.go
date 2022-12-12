@@ -9,8 +9,15 @@ import (
 
 // exp 信息栏
 type ExpMsg struct {
-	Author    string // 作者信息
-	Time      string // 编写时间
+	Author string // 作者信息
+
+	VulDate    string // 漏洞披露日期
+	CreateDate string // 漏洞编写日期
+	UpdateDate string // 漏洞修改日期
+	//Deprecated
+	// 建议使用上面新的日期说明
+	Time string // 编写时间
+
 	Range     string // 影响范围
 	ID        string // CVE等编号
 	Describe  string // 漏洞描述
@@ -46,7 +53,7 @@ type ExpNormalOptions struct {
 
 // 扩展选项
 type ExpExtendOptions struct {
-	Gadget    []string  // 所需要展示在UI上可选的gadget，暂时未开放
+	Gadget    []string  // 所需要展示在UI上可选的gadget
 	VulParams VulParams // 漏洞信息
 
 	CmdSubOptions map[string]string // cmd子选项
@@ -69,7 +76,8 @@ type VulParams struct {
 // -------------------------------------exp响应信息结构体-------------------------------------
 // 用于GetMsg/Cmd/Rerverse
 type ExpResult struct {
-	Cmd       string // 执行的cmd
+	Status    bool   // 利用是否成功
+	Cmd       string // 执行的cmd, 无需设置
 	Result    string // 执行返回结果
 	RawResult string // http响应完整内容
 	Err       error  // 错误信息

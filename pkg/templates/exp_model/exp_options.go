@@ -4,8 +4,8 @@ type UploadModeType int
 
 const (
 	UploadModeNormal = iota
-	//UploadModeSegment
-	//UploadModeMemShell
+	UploadModeSegment
+	UploadModeMemShell
 )
 
 type ExpSubOption struct {
