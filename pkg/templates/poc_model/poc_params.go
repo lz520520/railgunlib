@@ -36,10 +36,17 @@ type PocPerPayloadResult struct {
 type PocMsg struct {
 	Name      string // 漏洞名称，如果为空，则直接用结构体名
 	Author    string // 作者
-	Time      string // 发布时间
+
+	VulDate    string // 漏洞披露日期
+	CreateDate string // 漏洞编写日期
+	UpdateDate string // 漏洞修改日期
+	//Deprecated
+	Time string // 编写时间
+
 	Range     string // 影响范围
 	ID        string // 漏洞编号
 	Describe  string // 漏洞描述
 	Reference string // 引用
 	VulType   string // 漏洞类型
 }
+
