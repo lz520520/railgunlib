@@ -3,7 +3,6 @@ package goutils
 import (
 	"bytes"
 	"encoding/binary"
-	"encoding/gob"
 	"encoding/hex"
 	"fmt"
 )
@@ -140,16 +139,6 @@ func IntToBytes(n int64, b byte, bigEndian bool) ([]byte, error) {
 		return bytesBuffer.Bytes(), nil
 	}
 	return nil, fmt.Errorf("IntToBytes b param is invaild")
-}
-
-func Marshal(v interface{}) ([]byte, error) {
-	buf := bytes.NewBuffer(nil)
-	enc := gob.NewEncoder(buf)
-	err := enc.Encode(v)
-	if err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
 }
 
 func HexMust2Bytes(src string) []byte {
