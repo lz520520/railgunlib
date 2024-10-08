@@ -12,7 +12,9 @@ func SafeAddUri(target, uri string, check string) (result string) {
 	if err != nil {
 		return ""
 	}
-	if CompareIgnoreCase(u.RequestURI(), check) {
+	if check == "" && strings.TrimRight(u.RequestURI(), "/") == "" {
+		result = AppendUri(target, uri)
+	} else if CompareIgnoreCase(u.RequestURI(), check) {
 		result = target
 	} else {
 		result = AppendUri(target, uri)
